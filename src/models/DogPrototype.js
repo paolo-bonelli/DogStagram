@@ -1,6 +1,7 @@
 function DogPrototype(id) {
   this.id = id;
   this.liked = false;
+  this.disliked = false;
   this.pinned = false;
 
   this.setBreed = function (breed){
@@ -15,11 +16,13 @@ function DogPrototype(id) {
 
   this.likeDog = function () {
     this.liked = true;
+    this.disliked = false;
     return this;
   }
 
   this.dislikeDog = function() {
     this.liked = false;
+    this.disliked = true;
     return this;
   }
 

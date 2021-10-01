@@ -1,13 +1,7 @@
-// import LikeBtn from './Dog/LikeBtn';
-// import DislikeBtn from './Dog/DislikeBtn';
-// import SaveBtn from './Dog/SaveBtn';
-import ButtonImage from './ButtonImage';
-import Like from './icons/like.svg';
-import Dislike from './icons/dislike.svg';
-import Send from './icons/send.svg';
-import Pin from './icons/pin.svg';
 
-const Dog = ({dog, onLike, onDislike, onPin}) => {
+import { FaThumbsUp, FaThumbsDown, FaPaperPlane, FaBookmark } from 'react-icons/fa'
+
+const Dog = ({dog, onLike, onDislike, onPin, onShare}) => {
   
   return (
     <article className="dog-post">
@@ -17,11 +11,11 @@ const Dog = ({dog, onLike, onDislike, onPin}) => {
       </figure>
       <section className="dog-actions">
         <div className="btn-group">
-          <ButtonImage src={Like} text='Me gusta' cb={(event)=>{onLike(dog.id)}} />
-          <ButtonImage src={Dislike} text="No me gusta" cb={(event)=>{onDislike(dog.id)}} />
-          <ButtonImage src={Send} text="Enviar" cb={(event)=>{console.log("Send")}} />
+          <FaThumbsUp className={`btn-icon ${dog.liked ? 'btn-icon-check' : ''}`} onClick={(event)=>{onLike(dog.id)}} />
+          <FaThumbsDown className={`btn-icon ${dog.disliked ? 'btn-icon-check' : ''}`} onClick={(event)=>{onDislike(dog.id)}} />
+          <FaPaperPlane className="btn-icon" onClick={(event)=>{onShare(dog.id)}} />
         </div>
-        <ButtonImage src={Pin} text="Guardar" cb={(event)=>{onPin(dog.id)}} />
+        <FaBookmark className={`btn-icon ${dog.pinned ? 'btn-icon-check' : ''}`} onClick={(event)=>{onPin(dog.id)}} />
       </section>
     </article >
   )

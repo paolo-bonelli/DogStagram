@@ -5,16 +5,15 @@
 //     </header>
 //   )
 // }
-import Inbox from './icons/inbox.svg';
 import PropTypes from 'prop-types';
-import ButtonImage from './ButtonImage';
+import { FaInbox } from 'react-icons/fa'
 
 
 const Header = ({title}) => {
   return (
     <header className="main-header">
       <h1 className="header-title"><a href="./">{title}</a></h1>
-      <ButtonImage src={Inbox} alt="Guardados" cb={(event)=>{console.log("Saved items")}}/>
+      <FaInbox className="btn-icon" onClick={(event)=>{console.log("Saved items")}}/>
     </header>
   )
 }

@@ -31,6 +31,7 @@ a:-webkit-any-link {
 .main-header{
   box-sizing: border-box;
   position: fixed;
+  top: 0;
   width: 100%;
   font-size: 50%;
   height: 6em;
@@ -79,20 +80,18 @@ a:-webkit-any-link {
   padding: 1.2em 2em;
 }
 
-button.btn {
-  height: 100%;
-  border: 0;
-  width: fit-content;
+.btn-icon {
   background: transparent;
   cursor: pointer;
+  font-size: 18pt;
+  color: #2e2e2e;
 }
 
-button.btn img {
-  object-fit: contain;
-  height: 100%;
+.btn-icon-check{
+  color: #0476D9;
 }
 
-.btn-group > button {
+.btn-group > .btn-icon {
   margin-right: 0.5em;
 }
 
@@ -114,11 +113,12 @@ nav ul{
   height: 2em;
 }
 
-/* nav input[type='image'] {
-  height: 90%;
-  object-fit: contain;
-  padding: 0 2em;
-} */
+form.add-form{
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  
+}
 
 footer {
   margin-bottom: 3em;
