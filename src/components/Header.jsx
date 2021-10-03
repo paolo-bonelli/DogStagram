@@ -1,10 +1,3 @@
-// const Header = (props) => {
-//   return (
-//     <header>
-//       <h1 className="header-title" >{props.title}</h1>
-//     </header>
-//   )
-// }
 import PropTypes from 'prop-types';
 import { FaInbox } from 'react-icons/fa'
 
