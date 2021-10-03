@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import NavigationBar from "./components/NavigationBar";
 import Dogs from "./components/Dogs";
@@ -7,6 +7,17 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import AddDog from './components/AddDog'
 
 function App() {
+  useEffect(() => {
+    const fetchDogs = async () => {
+      const res = await fetch('https://api.thedogapi.com/v1/images/search?limit=10')
+      const data = await res.json()
+      return data
+    }
+    fetchDogs().then((data) => {
+      console.log(data)
+    });
+  }, [])
+
   const dogData = [
     {
       id: 1,

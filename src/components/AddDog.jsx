@@ -25,7 +25,7 @@ function AddDog() {
       setFileName("")
       setSelected(false)
     }
-  })
+  }, [file])
 
   const onSure = (e) => {
     setFile(e.target.files[0]);
