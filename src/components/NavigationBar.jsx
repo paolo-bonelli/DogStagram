@@ -11,7 +11,9 @@ function NavigationBar() {
         <Link to="/add">
           <FaPlusCircle className="btn-icon" onClick={(event) => { console.log("Agregar") }} />
         </Link>
-        <FaSearch className="btn-icon" onClick={(event) => { console.log("Explorar") }} />
+        <Link to="/explorer">
+          <FaSearch className="btn-icon" onClick={(event) => { console.log("Explorar") }} />
+        </Link>
       </ul>
     </nav>
   )

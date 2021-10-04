@@ -5,22 +5,42 @@ import Dogs from "./components/Dogs";
 import DogPrototype from "./models/DogPrototype";
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import AddDog from './components/AddDog'
+import Explorer from "./components/Explorer";
 
 function App() {
   const [dogs, setDogs] = useState([])
+  const [dogBreeds, setDogBreeds] = useState([])
   useEffect(() => {
-    const fetchDogs = async () => {
-      const res = await fetch('https://api.thedogapi.com/v1/images/search?limit=10&mime_types=jpg,png')
-      const data = await res.json()
-      return data
-    }
     fetchDogs().then((dogData) => {
       setDogs(dogData.map((dog) => {
         const dogInstance = new DogPrototype(dog.id)
         return dogInstance.setBreed(dog.breeds.length > 0 ? dog.breeds[0].name : 'No identificado').setImg(dog.url)
       }))
     });
+
+    fetchDogBreeds().then((dogBreeds) => {
+      setDogBreeds(dogBreeds.map((dogBreed) => {
+        return {name: dogBreed.name, id: dogBreed.id}
+      }))
+    })
   }, [])
+
+  const fetchDogs = async () => {
+    const url = new URL('https://api.thedogapi.com/v1/images/search')
+    url.searchParams.append('limit', 10)
+    url.searchParams.append('mime_types', 'jpg')
+    const res = await fetch(url)
+    const data = await res.json()
+    return data
+  }
+
+  const fetchDogBreeds = async () => {
+    const url = new URL("https://api.thedogapi.com/v1/breeds");
+    const res = await fetch(url);
+    const breedsData = await res.json();
+    console.log(breedsData)
+    return breedsData
+  }
 
   // const dogData = [
   //   {
@@ -64,6 +84,9 @@ function App() {
           <Dogs dogs={dogs} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
         )} />
         <Route path="/add" component={ AddDog } />
+        <Route path="/explorer" render={(props) => (
+          <Explorer dogBreeds={dogBreeds} />
+        )} />
         <footer>
           <div>Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
           <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
