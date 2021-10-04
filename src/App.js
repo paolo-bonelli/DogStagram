@@ -7,34 +7,38 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import AddDog from './components/AddDog'
 
 function App() {
+  const [dogs, setDogs] = useState([])
   useEffect(() => {
     const fetchDogs = async () => {
-      const res = await fetch('https://api.thedogapi.com/v1/images/search?limit=10')
+      const res = await fetch('https://api.thedogapi.com/v1/images/search?limit=10&mime_types=jpg,png')
       const data = await res.json()
       return data
     }
-    fetchDogs().then((data) => {
-      console.log(data)
+    fetchDogs().then((dogData) => {
+      setDogs(dogData.map((dog) => {
+        const dogInstance = new DogPrototype(dog.id)
+        return dogInstance.setBreed(dog.breeds.length > 0 ? dog.breeds[0].name : 'No identificado').setImg(dog.url)
+      }))
     });
   }, [])
 
-  const dogData = [
-    {
-      id: 1,
-      breed: 'Alaskan Husky',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Goose-Alaskan_Husky.jpg/800px-Goose-Alaskan_Husky.jpg',
-    },
-    {
-      id: 2,
-      breed: 'American Foxhound',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/AmericanFoxhound2.jpg',
-    }
-  ];
+  // const dogData = [
+  //   {
+  //     id: 1,
+  //     breed: 'Alaskan Husky',
+  //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Goose-Alaskan_Husky.jpg/800px-Goose-Alaskan_Husky.jpg',
+  //   },
+  //   {
+  //     id: 2,
+  //     breed: 'American Foxhound',
+  //     image: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/AmericanFoxhound2.jpg',
+  //   }
+  // ];
 
-  const [dogs, setDogs] = useState(dogData.map((dog) => {
-    const dogInstance = new DogPrototype(dog.id);
-    return dogInstance.setBreed(dog.breed).setImg(dog.image);
-  }));
+  // const [dogs, setDogs] = useState(dogData.map((dog) => {
+  //   const dogInstance = new DogPrototype(dog.id);
+  //   return dogInstance.setBreed(dog.breed).setImg(dog.image);
+  // }));
 
   const toLikeDog = (id) => {
     setDogs(dogs.map((dog) => dog.id === id ? dog.likeDog() : dog))
