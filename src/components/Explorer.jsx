@@ -22,7 +22,7 @@ function Explorer({dogBreeds}) {
       setDogs(
         dogsData.map((dog) => {
           const dogInstance = new DogPrototype(dog.id)
-          return dogInstance.setImg(dog.url).setBreed(dog.breeds.name)
+          return dogInstance.setImg(dog.url).setBreed(dog.breeds[0].name)
         })
       )
     })

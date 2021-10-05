@@ -38,7 +38,6 @@ function App() {
     const url = new URL("https://api.thedogapi.com/v1/breeds");
     const res = await fetch(url);
     const breedsData = await res.json();
-    console.log(breedsData)
     return breedsData
   }
 
@@ -83,7 +82,11 @@ function App() {
         <Route path="/" exact render={(props) => (
           <Dogs dogs={dogs} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
         )} />
-        <Route path="/add" component={ AddDog } />
+        <Route path="/add" render={ (props) => {
+          return (
+            <AddDog dogBreeds={dogBreeds} />
+          )
+        } } />
         <Route path="/explorer" render={(props) => (
           <Explorer dogBreeds={dogBreeds} />
         )} />

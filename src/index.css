@@ -279,7 +279,7 @@ form.add-form .form-control-upload:hover figure figcaption {
   letter-spacing: 0.7pt;
 }
 
-.explorer select {
+select {
   width: 100%;
   height: 2em;
   font-size: 11pt;
@@ -294,13 +294,77 @@ form.add-form .form-control-upload:hover figure figcaption {
 }
 
 .dog-thumbnail figure {
+  position: relative;
   height: 33.3vw;
+  transition-duration: 0.3s;
+}
+
+.dog-thumbnail figure:target{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(5, 5, 5, 0.9);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.dog-thumbnail figure .target-dog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dog-thumbnail figure:target .target-dog {
+  height: 0%;
+}
+
+.dog-thumbnail figure .target-explorer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+}
+
+.dog-thumbnail figure:target .target-explorer {
+  height: 100%;
+}
+
+.dog-thumbnail figcaption {
+  display: none;
+}
+
+.dog-thumbnail figure:target figcaption {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1em 0em;
+  text-indent: 2em;
+  background: #C33764;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1D2671, #C33764); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-size: large;
 }
 
 .dog-thumbnail img {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+.dog-thumbnail figure:target img {
+  object-fit: contain;
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 footer {
@@ -320,6 +384,28 @@ footer > * {
 }
 
 @media screen and (min-width: 768px) {
+  nav {
+    display: flex;
+    justify-content: center;
+  }
+
+  nav ul {
+    width: 30%;
+  }
+
+  form.add-form {
+    width: 90vh;
+  }
+
+  .explorer {
+    width: 90vh;
+    margin: 0 auto;
+  }
+
+  .dog-thumbnail figure {
+    height: 30vh;
+  }
+
   .main-header{
     padding: 1.5em 10em;
   }

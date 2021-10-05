@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import UploadButton from './UploadButton'
 
-function AddDog() {
+function AddDog({ dogBreeds }) {
   const [isSelected, setSelected] = useState(false);
   const [file, setFile] = useState({});
   const [fileRoute, setFileRoute] = useState("");
@@ -12,7 +12,14 @@ function AddDog() {
     console.log(event.target)
   }
 
+  const breedsList = [...dogBreeds.map((dogBreed) => {
+    return (
+      <option key={dogBreed.id} value={dogBreed.id}>{dogBreed.name}</option>
+    )
+  }), (<option key="0" value="0" >No identificado</option>)]
+
   useEffect((props)=>{
+
     if (file instanceof  File){
       setFileName(file.name)
       const reader = new FileReader();
@@ -36,7 +43,9 @@ function AddDog() {
     <form  onSubmit={onSubmit} className='add-form' encType="multipart/form-data" method="POST">
       <div className="form-control">
         <label htmlFor="dog-breed">Raza de perro:</label>
-        <input type="text" name="breed" id="dog-breed" required />
+        <select name="dog-breed" id="dog-breed">
+          { breedsList }
+        </select>
       </div>
       <div className="form-control-upload">
         <UploadButton isSelected={isSelected} fileName={fileName} fileRoute={fileRoute} />
