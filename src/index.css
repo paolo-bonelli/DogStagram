@@ -66,6 +66,10 @@ a:any-link {
 
 .main-container {
   margin: 3em 0;
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .dog-post{

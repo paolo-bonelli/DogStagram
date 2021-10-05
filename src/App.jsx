@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import NavigationBar from "./components/NavigationBar";
 import Dogs from "./components/Dogs";
 import DogPrototype from "./models/DogPrototype";
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {HashRouter as Router, Route} from 'react-router-dom'
 import AddDog from './components/AddDog'
 import Explorer from "./components/Explorer";
 
