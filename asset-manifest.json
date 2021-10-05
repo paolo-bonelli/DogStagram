@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/DogStagram/static/css/main.6835befc.chunk.css",
-    "main.js": "/DogStagram/static/js/main.9e389156.chunk.js",
-    "main.js.map": "/DogStagram/static/js/main.9e389156.chunk.js.map",
+    "main.css": "/DogStagram/static/css/main.4119d15f.chunk.css",
+    "main.js": "/DogStagram/static/js/main.3d54c906.chunk.js",
+    "main.js.map": "/DogStagram/static/js/main.3d54c906.chunk.js.map",
     "runtime-main.js": "/DogStagram/static/js/runtime-main.979e3bb7.js",
     "runtime-main.js.map": "/DogStagram/static/js/runtime-main.979e3bb7.js.map",
-    "static/js/2.a3eb35c1.chunk.js": "/DogStagram/static/js/2.a3eb35c1.chunk.js",
-    "static/js/2.a3eb35c1.chunk.js.map": "/DogStagram/static/js/2.a3eb35c1.chunk.js.map",
+    "static/js/2.a61fdce6.chunk.js": "/DogStagram/static/js/2.a61fdce6.chunk.js",
+    "static/js/2.a61fdce6.chunk.js.map": "/DogStagram/static/js/2.a61fdce6.chunk.js.map",
     "static/js/3.1d845620.chunk.js": "/DogStagram/static/js/3.1d845620.chunk.js",
     "static/js/3.1d845620.chunk.js.map": "/DogStagram/static/js/3.1d845620.chunk.js.map",
     "index.html": "/DogStagram/index.html",
-    "static/css/main.6835befc.chunk.css.map": "/DogStagram/static/css/main.6835befc.chunk.css.map",
-    "static/js/2.a3eb35c1.chunk.js.LICENSE.txt": "/DogStagram/static/js/2.a3eb35c1.chunk.js.LICENSE.txt"
+    "static/css/main.4119d15f.chunk.css.map": "/DogStagram/static/css/main.4119d15f.chunk.css.map",
+    "static/js/2.a61fdce6.chunk.js.LICENSE.txt": "/DogStagram/static/js/2.a61fdce6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.979e3bb7.js",
-    "static/js/2.a3eb35c1.chunk.js",
-    "static/css/main.6835befc.chunk.css",
-    "static/js/main.9e389156.chunk.js"
+    "static/js/2.a61fdce6.chunk.js",
+    "static/css/main.4119d15f.chunk.css",
+    "static/js/main.3d54c906.chunk.js"
   ]
 }
