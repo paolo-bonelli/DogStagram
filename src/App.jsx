@@ -10,6 +10,7 @@ import Explorer from "./components/Explorer";
 function App() {
   const [dogs, setDogs] = useState([])
   const [dogBreeds, setDogBreeds] = useState([])
+  
   useEffect(() => {
     fetchDogs().then((dogData) => {
       setDogs(dogData.map((dog) => {
@@ -87,8 +88,8 @@ function App() {
             <AddDog dogBreeds={dogBreeds} />
           )
         } } />
-        <Route path="/explorer" render={(props) => (
-          <Explorer dogBreeds={dogBreeds} />
+        <Route path="/explorer" exact render={(props) => (
+          <Explorer dogBreeds={dogBreeds} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
         )} />
         <footer>
           <div>Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

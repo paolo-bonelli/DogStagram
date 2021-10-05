@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import DogPrototype from '../models/DogPrototype'
 import DogThumbnail from './DogThumbnail'
 
-function Explorer({dogBreeds}) {
+function Explorer({dogBreeds, onLike, onDislike, onPin, onShare}) {
   const [breedId, setDogBreed] = useState(1)
   const [dogs, setDogs] = useState([])
   const [dogThumbList, setThumbList] = useState([])
@@ -28,10 +28,10 @@ function Explorer({dogBreeds}) {
     })
 
     setThumbList(dogs.map((dog) => {
-      return <DogThumbnail key={dog.id} dog={dog} />
+      return <DogThumbnail key={dog.id} dog={dog} onLike={onLike} onDislike={onDislike} onPin={onPin} onShare={onShare} />
     }))
 
-  }, [ dogs, breedId])
+  }, [ dogs, breedId, onDislike, onLike, onPin, onShare])
 
   const breedsList = dogBreeds.map((dogBreed) => {
     return (
@@ -40,7 +40,7 @@ function Explorer({dogBreeds}) {
   })
 
   const toSubmit = (event) => {
-    event.preventDefault()
+    event.target.preventDefault()
   }
 
   const toChange = (event) => {
