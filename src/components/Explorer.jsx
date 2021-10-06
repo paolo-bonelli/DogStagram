@@ -1,37 +1,6 @@
-import {useState, useEffect} from 'react'
-import DogPrototype from '../models/DogPrototype'
 import DogThumbnail from './DogThumbnail'
 
-function Explorer({dogBreeds, onLike, onDislike, onPin, onShare}) {
-  const [breedId, setDogBreed] = useState(1)
-  const [dogs, setDogs] = useState([])
-  const [dogThumbList, setThumbList] = useState([])
-  
-  useEffect(() => {
-    const fetchDogsByBreed = async () => {
-      const url = new URL('https://api.thedogapi.com/v1/images/search')
-      url.searchParams.append('limit', 21)
-      url.searchParams.append('mime_types', 'jpg')
-      url.searchParams.append('breed_id', breedId)
-      const res = await fetch(url)
-      const byBreedsData = await res.json()
-      return byBreedsData;
-    }
-  
-    fetchDogsByBreed().then((dogsData) => {
-      setDogs(
-        dogsData.map((dog) => {
-          const dogInstance = new DogPrototype(dog.id)
-          return dogInstance.setImg(dog.url).setBreed(dog.breeds[0].name)
-        })
-      )
-    })
-
-    setThumbList(dogs.map((dog) => {
-      return <DogThumbnail key={dog.id} dog={dog} onLike={onLike} onDislike={onDislike} onPin={onPin} onShare={onShare} />
-    }))
-
-  }, [ dogs, breedId, onDislike, onLike, onPin, onShare])
+function Explorer({dogs, dogBreeds, onLike, onDislike, onPin, onShare, toChangeBreed}) {
 
   const breedsList = dogBreeds.map((dogBreed) => {
     return (
@@ -39,17 +8,19 @@ function Explorer({dogBreeds, onLike, onDislike, onPin, onShare}) {
     )
   })
 
+  const dogThumbList = dogs.map((dog) => {
+    return (
+      <DogThumbnail dog={dog} />
+    )
+  })
+
   const toSubmit = (event) => {
     event.target.preventDefault()
   }
 
-  const toChange = (event) => {
-    setDogBreed(event.target.value)
-  }
-
   return (
     <section className="explorer">
-      <form onSubmit={toSubmit} method="get" onChange={toChange}>
+      <form onSubmit={toSubmit} method="get" onChange={(event) => {toChangeBreed(event.target.value)}}>
         <select name="dog-breeds" id="dog-breeds">
           {breedsList}
         </select>

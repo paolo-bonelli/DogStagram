@@ -303,6 +303,7 @@ select {
   position: relative;
   height: 33.3vw;
   transition-duration: 0.3s;
+  cursor: pointer;
 }
 
 .dog-thumbnail figure:target{
