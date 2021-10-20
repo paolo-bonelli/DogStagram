@@ -381,6 +381,25 @@ select {
   max-width: 100%;
 }
 
+.dog-thumbnail .dog-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(15,10,20,0.9);
+}
+
+.dog-thumbnail .dog-container figure {
+  height: auto;
+  max-width: 80vh;
+  cursor: auto;
+}
+
 footer {
   font-size: 10pt;
   background: #C33764;  /* fallback for old browsers */

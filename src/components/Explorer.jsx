@@ -10,7 +10,7 @@ function Explorer({dogs, dogBreeds, onLike, onDislike, onPin, onShare, toChangeB
 
   const dogThumbList = dogs.map((dog) => {
     return (
-      <DogThumbnail dog={dog} />
+      <DogThumbnail dog={dog} key={dog.id} />
     )
   })
 

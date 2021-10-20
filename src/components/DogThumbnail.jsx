@@ -1,13 +1,12 @@
-import React from 'react'
-import Dog from './Dog'
 
 function DogThumbnail({dog, onLike, onDislike, onPin, onShare}) {
   return (
     <article className="dog-thumbnail" >
-      <figure  id={dog.id}>
-        <figcaption>{dog.breed}</figcaption>
-        <img src={dog.image} alt={dog.breed} />
-      </figure>
+      <div className={false ? "dog-container" : ''}>
+        <figure  id={dog.id}>
+          <img src={dog.image} alt={dog.breed} />
+        </figure>
+      </div>
     </article>
   )
 }

@@ -48,7 +48,7 @@ function App() {
     });
 
     fetchDogBreeds().then((dogBreeds) => {
-      setDogBreeds([{name:"No identificado", id: 0},...dogBreeds.map((dogBreed) => {
+      setDogBreeds([{name:"No identificado", id: 'NO'},...dogBreeds.map((dogBreed) => {
         return {name: dogBreed.name, id: dogBreed.id}
       })])
     })
@@ -94,10 +94,6 @@ function App() {
         <Route path="/explorer" exact render={(props) => (
           <Explorer dogBreeds={dogBreeds} toChangeBreed={setBreedId} dogs={dogsThumbList} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
         )} />
-        <footer>
-          <div>Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-          <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-        </footer>
         <NavigationBar />
       </div>
     </Router>
