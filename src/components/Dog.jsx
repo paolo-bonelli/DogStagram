@@ -1,13 +1,17 @@
 
 import { FaThumbsUp, FaThumbsDown, FaPaperPlane, FaBookmark } from 'react-icons/fa'
+import loadingDog from './dog.svg'
 
 const Dog = ({dog, onLike, onDislike, onPin, onShare}) => {
+  const changeSrc = (target) => {
+    target.src = dog.image;
+  }
   
   return (
     <article className="dog-post">
       <figure>
         <figcaption>{dog.breed}</figcaption>
-        <img className="dog-img" src={ dog.image } onDoubleClick={(event) => {onLike(dog.id)}} alt={dog.breed} />
+        <img onLoad={(event) => {changeSrc(event.target)}} className="dog-img" src={ loadingDog } onDoubleClick={(event) => {onLike(dog.id)}} alt={dog.breed} />
       </figure>
       <section className="dog-actions">
         <div className="btn-group">

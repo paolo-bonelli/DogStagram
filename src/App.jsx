@@ -25,7 +25,7 @@ function App() {
 
   const fetchDogs = async () => {
     const url = new URL('https://api.thedogapi.com/v1/images/search')
-    url.searchParams.append('limit', 10)
+    url.searchParams.append('limit', 100)
     url.searchParams.append('mime_types', 'jpg')
     const res = await fetch(url)
     const data = await res.json()
@@ -95,6 +95,9 @@ function App() {
           <Explorer dogBreeds={dogBreeds} toChangeBreed={setBreedId} dogs={dogsThumbList} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
         )} />
         <NavigationBar />
+        <footer>
+          <a href="https://storyset.com/animal">Animal illustrations by Storyset</a>
+        </footer>
       </div>
     </Router>
   );
