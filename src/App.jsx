@@ -18,33 +18,51 @@ function App() {
     url.searchParams.append('limit', 21)
     url.searchParams.append('mime_types', 'jpg')
     url.searchParams.append('breed_id', breedId)
-    const res = await fetch(url)
+    const res = await fetch(url).catch((err) => {
+      console.log(err);
+      return {}
+    })
     const byBreedsData = await res.json()
     return byBreedsData;
   }, [breedId])
 
   const fetchDogs = async () => {
     const url = new URL('https://api.thedogapi.com/v1/images/search')
-    url.searchParams.append('limit', 100)
+    url.searchParams.append('limit', 10)
     url.searchParams.append('mime_types', 'jpg')
-    const res = await fetch(url)
+    const res = await fetch(url).catch((err) => {
+      console.log(err);
+      return {}
+    })
     const data = await res.json()
     return data
   }
 
   const fetchDogBreeds = async () => {
     const url = new URL("https://api.thedogapi.com/v1/breeds");
-    const res = await fetch(url);
+    const res = await fetch(url).catch((err) => {
+      console.log(err);
+      return {}
+    });
     const breedsData = await res.json();
     return breedsData
   }
 
+  const filterDuplicates = (dog, index, self) => {
+    return (self.findIndex((element) => { return element.id === dog.id}) === index)
+  }
+
   useEffect(() => {
     fetchDogs().then((dogsData) => {
-      setDogs(dogsData.map((dog) => {
-        const dogInstance = new DogPrototype(dog.id)
-        return dogInstance.setBreed(dog.breeds.length > 0 ? dog.breeds[0].name : 'No identificado').setImg(dog.url)
-      }))
+      setDogs(prevDogs => {
+        const newDogs = [...new Set(...prevDogs,
+          dogsData.map((dog) => {
+          const dogInstance = new DogPrototype(dog.id)
+          return dogInstance.setBreed(dog.breeds.length > 0 ? dog.breeds[0].name : 'No identificado').setImg(dog.url)
+          })
+        )]
+        return newDogs.filter(filterDuplicates)
+      })
     });
 
     fetchDogBreeds().then((dogBreeds) => {
@@ -54,12 +72,12 @@ function App() {
     })
 
     fetchDogsByBreed().then((dogsData) => {
-      setThumbList(
-        dogsData.map((dog) => {
+      setThumbList( prevThumbList => {
+        return [...new Set(...prevThumbList, dogsData.map((dog) => {
           const dogInstance = new DogPrototype(dog.id)
           return dogInstance.setImg(dog.url).setBreed(dog.breeds[0].name)
-        })
-      )
+        }))]
+      })
     })
   }, [fetchDogsByBreed])
 
