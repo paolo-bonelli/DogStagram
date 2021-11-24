@@ -1,59 +1,93 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import {HashRouter as Router, Route} from 'react-router-dom'
 import Header from "./components/Header";
 import NavigationBar from "./components/NavigationBar";
 import Dogs from "./components/Dogs";
 import DogPrototype from "./models/DogPrototype";
-import {HashRouter as Router, Route} from 'react-router-dom'
 import AddDog from './components/AddDog'
 import Explorer from "./components/Explorer";
+import LoadingDog from "./components/dog.svg"
 
 function App() {
+  // dogs will contain the DogPrototype instances
   const [dogs, setDogs] = useState([])
+  // dogBreeds will contain the list of available breeds for dogs
   const [dogBreeds, setDogBreeds] = useState([])
+  // breedId determines the breed showed in the Explorer route
   const [breedId, setBreedId] = useState(1)
+  // dogsThumbList contains the dogInstances to be showed in the Explorer route
   const [dogsThumbList, setThumbList] = useState([])
+  
+  /**
+   * This observer is suppoused to fetch new dogs when the user reach the end of the list
+   * The observer could be in the last Dog or could be in a different block so the logic does not
+   *   become confuse
+   **/ 
+  const observer = useRef();
 
+  /**
+   * It is defined the asynchronous function to fetch the dogs of a specific breed from the API
+   * with the useCallback method provided by react so the callback is able to use the state
+   * breedId in the URL search parameters
+   **/
   const fetchDogsByBreed = useCallback (async () => {
     const url = new URL('https://api.thedogapi.com/v1/images/search')
     url.searchParams.append('limit', 21)
     url.searchParams.append('mime_types', 'jpg')
     url.searchParams.append('breed_id', breedId)
-    const res = await fetch(url).catch((err) => {
-      console.log(err);
-      return {}
+    return await fetch(url).catch((err) => {
+      console.error(err);
+      return err
+    }).then((breedsData) => {
+      return breedsData.json()
     })
-    const byBreedsData = await res.json()
-    return byBreedsData;
   }, [breedId])
 
+  /**
+   * Similar to the callback above this will fetch ten (10) random dogs to be displayed in the
+   * home route
+   **/
   const fetchDogs = async () => {
     const url = new URL('https://api.thedogapi.com/v1/images/search')
     url.searchParams.append('limit', 10)
     url.searchParams.append('mime_types', 'jpg')
-    const res = await fetch(url).catch((err) => {
-      console.log(err);
-      return {}
+    return await fetch(url).catch((err) => {
+      console.error(err);
+      return err
+    }).then((dogsData) => {
+      return dogsData.json()
     })
-    const data = await res.json()
-    return data
   }
 
+  /**
+   * This functions will fetch the list of breeds available in the API
+   **/
   const fetchDogBreeds = async () => {
     const url = new URL("https://api.thedogapi.com/v1/breeds");
-    const res = await fetch(url).catch((err) => {
-      console.log(err);
-      return {}
-    });
-    const breedsData = await res.json();
-    return breedsData
+    return await fetch(url).catch((err) => {
+      console.error(err);
+      return err
+    }).then((breedsData) => {
+      return breedsData.json()
+    })
   }
 
+  /**
+   * 
+   * @param {DogPrototype} dog 
+   * @param {*} index 
+   * @param {*} self 
+   * @returns 
+   */
   const filterDuplicates = (dog, index, self) => {
     return (self.findIndex((element) => { return element.id === dog.id}) === index)
   }
 
   useEffect(() => {
-    fetchDogs().then((dogsData) => {
+    fetchDogs().catch((err) => {
+      console.error(err);
+      return err;
+    }).then((dogsData) => {
       setDogs(prevDogs => {
         const newDogs = [...new Set(...prevDogs,
           dogsData.map((dog) => {
@@ -102,7 +136,7 @@ function App() {
       <div className="main-container">
         <Header/>
         <Route path="/" exact render={(props) => (
-          <Dogs dogs={dogs} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
+          <Dogs dogs={dogs} loadingDog={LoadingDog} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
         )} />
         <Route path="/add" render={ (props) => {
           return (
@@ -110,7 +144,7 @@ function App() {
           )
         } } />
         <Route path="/explorer" exact render={(props) => (
-          <Explorer dogBreeds={dogBreeds} toChangeBreed={setBreedId} dogs={dogsThumbList} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
+          <Explorer loadingDog={LoadingDog} dogBreeds={dogBreeds} toChangeBreed={setBreedId} dogs={dogsThumbList} onLike={toLikeDog} onDislike={toDislikeDog} onPin={toPinDog} onShare={toShare} />
         )} />
         <NavigationBar />
         <footer>

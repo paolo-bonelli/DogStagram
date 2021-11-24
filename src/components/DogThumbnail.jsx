@@ -1,6 +1,5 @@
-import loadingDog from './dog.svg'
 
-function DogThumbnail({dog, onLike, onDislike, onPin, onShare}) {
+function DogThumbnail({dog, loadingDog, onLike, onDislike, onPin, onShare}) {
   const changeSrc = (target) => {
     target.src = dog.image;
   }

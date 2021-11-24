@@ -1,8 +1,7 @@
 
 import { FaThumbsUp, FaThumbsDown, FaPaperPlane, FaBookmark } from 'react-icons/fa'
-import loadingDog from './dog.svg'
 
-const Dog = ({dog, onLike, onDislike, onPin, onShare}) => {
+const Dog = ({dog, loadingDog, onLike, onDislike, onPin, onShare}) => {
   const changeSrc = (target) => {
     target.src = dog.image;
   }

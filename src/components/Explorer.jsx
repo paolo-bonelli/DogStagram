@@ -1,6 +1,6 @@
 import DogThumbnail from './DogThumbnail'
 
-function Explorer({dogs, dogBreeds, onLike, onDislike, onPin, onShare, toChangeBreed}) {
+function Explorer({dogs, loadingDog, dogBreeds, onLike, onDislike, onPin, onShare, toChangeBreed}) {
 
   const breedsList = dogBreeds.map((dogBreed) => {
     return (
@@ -10,7 +10,7 @@ function Explorer({dogs, dogBreeds, onLike, onDislike, onPin, onShare, toChangeB
 
   const dogThumbList = dogs.map((dog) => {
     return (
-      <DogThumbnail dog={dog} key={dog.id} />
+      <DogThumbnail loadingDog={loadingDog} dog={dog} key={dog.id} />
     )
   })
 
